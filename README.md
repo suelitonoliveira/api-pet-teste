@@ -49,6 +49,6 @@ https://api-petz-teste.herokuapp.com/pets
 * [Swagger](https://api-petz-teste.herokuapp.com/swagger-ui.html)
 
 
-
+obs: Pode haver uma demora de até 1 minuto para abrir os links hospedados no heroku devido a utilização de um conta free possui hibernação.
 
 
