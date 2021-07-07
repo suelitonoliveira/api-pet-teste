@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.petz.domain.Cliente;
+import com.petz.dtos.ClienteDTO;
 import com.petz.repositories.ClienteRepository;
 import com.petz.repositories.EnderecoRepository;
 import com.petz.service.exceptions.ObjectNotFoundException;
@@ -50,9 +51,19 @@ public class ClienteService {
 
 	@Transactional
 	public Cliente update(Cliente obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Cliente newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 
+	}
+	
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+	}
+	
+	public Cliente fromDTO(ClienteDTO objDto) {
+		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail());
 	}
 
 	@Transactional

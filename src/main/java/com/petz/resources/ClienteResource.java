@@ -2,6 +2,7 @@ package com.petz.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.petz.domain.Cliente;
+import com.petz.dtos.ClienteDTO;
 import com.petz.services.ClienteService;
 
 @RestController
@@ -26,9 +28,10 @@ public class ClienteResource {
 	private ClienteService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> findAll() {
+	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
